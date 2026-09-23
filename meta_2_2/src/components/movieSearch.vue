@@ -38,7 +38,7 @@
 
         <v-btn
           type="submit"
-          color="primary"
+          color="#5c5c5c"
           block
           prepend-icon="mdi-magnify"
           :disabled="!query"
