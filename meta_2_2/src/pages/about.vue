@@ -2,11 +2,13 @@
   <v-container class="pa-8 text-center">
     <v-row justify="center">
       <v-col cols="12" md="6">
-        <div class="text-h1 mb-4">🎬</div>
+            <v-row>
+      <v-col cols="12">
+        <h1 class="text-h3 mb-6 text-center">🎬 Buscador de Películas</h1>
+      </v-col>
+    </v-row>
 
-        <h1 class="text-h3 mb-2">Buscador de Películas</h1>
-
-        <v-chip color="primary" class="mb-6">
+        <v-chip color="#5c5c5c" class="mb-6">
           Versión 1.0.0
         </v-chip>
 
@@ -25,7 +27,7 @@
 
         <v-btn
           to="/"
-          color="primary"
+          color="#5c5c5c"
           class="mt-6"
           prepend-icon="mdi-arrow-left"
         >
