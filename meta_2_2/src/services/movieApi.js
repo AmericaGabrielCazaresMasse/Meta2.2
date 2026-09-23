@@ -1,33 +1,46 @@
-import axios from 'axios'
-
 const API_KEY = 'ecf001da'
 const BASE_URL = 'https://www.omdbapi.com/'
 
-const api = axios.create({
-  baseURL: BASE_URL,
-  params: {
-    apikey: API_KEY
-  }
-})
-
 export const searchMovies = async (params) => {
-  const response = await api.get('', {
-    params: {
-      s: params.query,
-      type: params.type || 'movie',
-      y: params.year || '',
-      page: params.page || 1
-    }
-  })
-  return response.data
+  const url = new URL(BASE_URL)
+  url.searchParams.set('apikey', API_KEY)
+  url.searchParams.set('s', params.query)
+  url.searchParams.set('type', params.type || 'movie')
+  url.searchParams.set('y', params.year || '')
+  url.searchParams.set('page', params.page || 1)
+
+  const response = await fetch(url)
+
+  if (!response.ok) {
+    throw new Error(`Error HTTP: ${response.status}`)
+  }
+
+  const data = await response.json()
+
+  if (data.Response === 'False') {
+    throw new Error(data.Error || 'No se encontraron resultados')
+  }
+
+  return data
 }
 
 export const getMovieDetails = async (imdbID) => {
-  const response = await api.get('', {
-    params: {
-      i: imdbID,
-      plot: 'full'
-    }
-  })
-  return response.data
+  const url = new URL(BASE_URL)
+  url.searchParams.set('apikey', API_KEY)
+  url.searchParams.set('i', imdbID)
+  url.searchParams.set('plot', 'full')
+
+  const response = await fetch(url)
+
+  if (!response.ok) {
+    throw new Error(`Error HTTP: ${response.status}`)
+  }
+
+  const data = await response.json()
+
+  if (data.Response === 'False') {
+    throw new Error(data.Error || 'No se pudo obtener el detalle')
+  }
+
+  return data
 }
